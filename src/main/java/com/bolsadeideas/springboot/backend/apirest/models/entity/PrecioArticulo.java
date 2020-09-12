@@ -5,8 +5,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,22 +14,21 @@ public class PrecioArticulo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name = "arti_cod")
+	private String arti_cod;
+
 	@Column(name = "lipr_cod")
 	private Integer lipr_cod;
 
 	@Column(name = "prar_fijo")
-	private String precio;
+	private Double precio;
 
 	@Column(name = "prar_dto1")
-	private String descuento;
+	private Double descuento;
 
 	/*
 	 * RELACIONES
 	 */
-
-	@ManyToOne
-	@JoinColumn(name = "arti_cod", referencedColumnName = "arti_cod")
-	private Articulo articulo;
 
 	// ** metodo get and set //
 
@@ -39,15 +36,11 @@ public class PrecioArticulo implements Serializable {
 		return lipr_cod;
 	}
 
-	public void setArticulo(Articulo articulo) {
-		this.articulo = articulo;
-	}
-
-	public String getPrecio() {
+	public Double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(String precio) {
+	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
 
@@ -55,12 +48,20 @@ public class PrecioArticulo implements Serializable {
 		this.lipr_cod = lipr_cod;
 	}
 
-	public String getDescuento() {
+	public Double getDescuento() {
 		return descuento;
 	}
 
-	public void setDescuento(String descuento) {
+	public void setDescuento(Double descuento) {
 		this.descuento = descuento;
+	}
+
+	public String getArti_cod() {
+		return arti_cod;
+	}
+
+	public void setArti_cod(String arti_cod) {
+		this.arti_cod = arti_cod;
 	}
 
 }

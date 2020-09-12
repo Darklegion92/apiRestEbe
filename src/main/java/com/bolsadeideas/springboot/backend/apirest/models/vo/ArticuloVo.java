@@ -4,13 +4,13 @@ public class ArticuloVo {
 
 	private String nombre;
 	private String codigo;
-	private String precio;
-	private String descuento;
+	private Double precio;
+	private Double descuento;
 	private String nombremarca;
 	private String nombrefamilia;
 	private String nombregrupo;
 
-	public ArticuloVo(String nombre, String codigo, String precio, String descuento, String nombremarca,
+	public ArticuloVo(String nombre, String codigo, Double precio, Double descuento, String nombremarca,
 			String nombrefamilia, String nombregrupo) {
 		super();
 		this.nombre = nombre;
@@ -38,19 +38,19 @@ public class ArticuloVo {
 		this.codigo = codigo;
 	}
 
-	public String getPrecio() {
+	public Double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(String precio) {
+	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
 
-	public String getDescuento() {
+	public Double getDescuento() {
 		return descuento;
 	}
 
-	public void setDescuento(String descuento) {
+	public void setDescuento(Double descuento) {
 		this.descuento = descuento;
 	}
 

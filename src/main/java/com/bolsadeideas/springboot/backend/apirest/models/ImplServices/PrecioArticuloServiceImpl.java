@@ -28,4 +28,10 @@ public class PrecioArticuloServiceImpl implements IPrecioArticuloService {
 		return precioArticuloDao.findById(id).orElse(null);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public PrecioArticulo findByCod(String id) {
+		return precioArticuloDao.findByCod(id);
+	}
+
 }

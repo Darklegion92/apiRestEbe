@@ -10,4 +10,5 @@ public interface IPrecioArticuloService {
 	
 	public PrecioArticulo findById(String id);
 	
+	public PrecioArticulo findByCod(String id);
 }

@@ -9,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bolsadeideas.springboot.backend.apirest.models.dao.IArticuloDao;
 import com.bolsadeideas.springboot.backend.apirest.models.entity.Articulo;
+import com.bolsadeideas.springboot.backend.apirest.models.entity.PrecioArticulo;
 import com.bolsadeideas.springboot.backend.apirest.models.services.IArticuloService;
+import com.bolsadeideas.springboot.backend.apirest.models.services.IPrecioArticuloService;
 import com.bolsadeideas.springboot.backend.apirest.models.vo.ArticuloVo;
 
 @Service
@@ -17,6 +19,9 @@ public class ArticuloServiceImpl implements IArticuloService {
 
 	@Autowired
 	private IArticuloDao articuloDao;
+
+	@Autowired
+	private IPrecioArticuloService metodoService;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -26,13 +31,16 @@ public class ArticuloServiceImpl implements IArticuloService {
 		List<ArticuloVo> articulosVo = new ArrayList<ArticuloVo>();
 		for (Articulo articulo : articulos) {
 			try {
-				ArticuloVo articuloVo = new ArticuloVo(articulo.getNombre(), articulo.getCodigo(),
-						articulo.getPreciosArticulo().get(0).getPrecio(),
-						articulo.getPreciosArticulo().get(0).getDescuento(), articulo.getMarca().getNombre(),
-						articulo.getFamilia().getNombre(), articulo.getGrupo().getNombre());
-				articulosVo.add(articuloVo);
+
+				if (articulo.getEstado().equals("A")) {
+					PrecioArticulo precio = metodoService.findByCod(articulo.getCodigo());
+					ArticuloVo articuloVo = new ArticuloVo(articulo.getNombre(), articulo.getCodigo(),
+							precio.getPrecio(), precio.getDescuento(), articulo.getMarca().getNombre(),
+							articulo.getFamilia().getNombre(), articulo.getGrupo().getNombre());
+					articulosVo.add(articuloVo);
+				}
 			} catch (Exception e) {
-				// TODO: handle exception
+
 			}
 		}
 
@@ -42,17 +50,17 @@ public class ArticuloServiceImpl implements IArticuloService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<ArticuloVo> findByNombre(String term) {
-		List<Articulo> articulos = (List<Articulo>) articuloDao.findByNombre(term);
+		List<Articulo> articulos = (List<Articulo>) articuloDao.findByNombre(term.toUpperCase());
 		List<ArticuloVo> articulosVo = new ArrayList<ArticuloVo>();
 		for (Articulo articulo : articulos) {
 			try {
-				ArticuloVo articuloVo = new ArticuloVo(articulo.getNombre(), articulo.getCodigo(),
-						articulo.getPreciosArticulo().get(0).getPrecio(),
-						articulo.getPreciosArticulo().get(0).getDescuento(), articulo.getMarca().getNombre(),
-						articulo.getFamilia().getNombre(), articulo.getGrupo().getNombre());
+				PrecioArticulo precio = metodoService.findByCod(articulo.getCodigo());
+				ArticuloVo articuloVo = new ArticuloVo(articulo.getNombre(), articulo.getCodigo(), precio.getPrecio(),
+						precio.getDescuento(), articulo.getMarca().getNombre(), articulo.getFamilia().getNombre(),
+						articulo.getGrupo().getNombre());
 				articulosVo.add(articuloVo);
 			} catch (Exception e) {
-				// TODO: handle exception
+				e.printStackTrace();
 			}
 		}
 		return articulosVo;
@@ -61,14 +69,14 @@ public class ArticuloServiceImpl implements IArticuloService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<ArticuloVo> findByAgrupacion(String fami, String grup) {
-		List<Articulo> articulos = (List<Articulo>) articuloDao.findByAgrupacion(fami,grup);
+		List<Articulo> articulos = (List<Articulo>) articuloDao.findByAgrupacion(fami, grup);
 		List<ArticuloVo> articulosVo = new ArrayList<ArticuloVo>();
 		for (Articulo articulo : articulos) {
 			try {
-				ArticuloVo articuloVo = new ArticuloVo(articulo.getNombre(), articulo.getCodigo(),
-						articulo.getPreciosArticulo().get(0).getPrecio(),
-						articulo.getPreciosArticulo().get(0).getDescuento(), articulo.getMarca().getNombre(),
-						articulo.getFamilia().getNombre(), articulo.getGrupo().getNombre());
+				PrecioArticulo precio = metodoService.findByCod(articulo.getCodigo());
+				ArticuloVo articuloVo = new ArticuloVo(articulo.getNombre(), articulo.getCodigo(), precio.getPrecio(),
+						precio.getDescuento(), articulo.getMarca().getNombre(), articulo.getFamilia().getNombre(),
+						articulo.getGrupo().getNombre());
 				articulosVo.add(articuloVo);
 			} catch (Exception e) {
 				// TODO: handle exception

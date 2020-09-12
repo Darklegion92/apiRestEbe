@@ -1,14 +1,12 @@
 package com.bolsadeideas.springboot.backend.apirest.models.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,6 +25,9 @@ public class Articulo implements Serializable {
 	@Column(name = "arti_des")
 	private String nombre;
 
+	@Column(name = "esar_cod")
+	private String estado;
+
 	/* RELACIONES */
 	@ManyToOne
 	@JoinColumn(name = "fain_cod", referencedColumnName = "fain_cod")
@@ -40,21 +41,10 @@ public class Articulo implements Serializable {
 	@JoinColumn(name = "marc_cod", referencedColumnName = "marc_cod")
 	private Marca marca;
 
-	@OneToMany(mappedBy = "articulo")
-	private List<PrecioArticulo> preciosArticulo;
-
 	/* Getter and setter */
 
 	public String getCodigo() {
 		return codigo;
-	}
-
-	public List<PrecioArticulo> getPreciosArticulo() {
-		return preciosArticulo;
-	}
-
-	public void setPreciosArticulo(List<PrecioArticulo> preciosArticulo) {
-		this.preciosArticulo = preciosArticulo;
 	}
 
 	public void setCodigo(String codigo) {
@@ -91,6 +81,14 @@ public class Articulo implements Serializable {
 
 	public void setMarca(Marca marca) {
 		this.marca = marca;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 }
