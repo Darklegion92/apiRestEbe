@@ -12,4 +12,6 @@ public interface IArticuloService {
 
 	public List<ArticuloVo> findByAgrupacion(String fami, String grup);
 
+	public ArticuloVo findById(String term);
+
 }

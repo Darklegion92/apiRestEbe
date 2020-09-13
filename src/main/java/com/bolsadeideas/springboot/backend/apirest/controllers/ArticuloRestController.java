@@ -26,6 +26,12 @@ public class ArticuloRestController {
 	public List<ArticuloVo> index() {
 		return metodoService.findAll();
 	}
+	
+	@GetMapping("/articulos/codigo/{term}")
+	@ResponseStatus(HttpStatus.OK)
+	public ArticuloVo findById(@PathVariable String term) {
+		return metodoService.findById(term);
+	}
 
 	@GetMapping("/articulos/{term}")
 	@ResponseStatus(HttpStatus.OK)

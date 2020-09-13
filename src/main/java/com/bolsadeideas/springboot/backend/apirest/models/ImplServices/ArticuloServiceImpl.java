@@ -84,4 +84,24 @@ public class ArticuloServiceImpl implements IArticuloService {
 		}
 		return articulosVo;
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public ArticuloVo findById(String term) {
+		Articulo articulo = (Articulo) articuloDao.findById(term);
+		ArticuloVo articuloVo = new ArticuloVo(null, null, null, null, null, null, null);
+		System.err.println(term);
+		try {
+			if (articulo.getEstado().equals("A")) {
+				PrecioArticulo precio = metodoService.findByCod(articulo.getCodigo());
+				articuloVo = new ArticuloVo(articulo.getNombre(), articulo.getCodigo(), precio.getPrecio(),
+						precio.getDescuento(), articulo.getMarca().getNombre(), articulo.getFamilia().getNombre(),
+						articulo.getGrupo().getNombre());
+
+			}
+		} catch (Exception e) {
+
+		}
+		return articuloVo;
+	}
 }
