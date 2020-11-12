@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bolsadeideas.springboot.backend.apirest.models.entity.Ajuste;
 import com.bolsadeideas.springboot.backend.apirest.models.services.IPerecederosService;
 import com.bolsadeideas.springboot.backend.apirest.models.vo.PerecederosVo;
 
@@ -20,7 +21,7 @@ public class PerecederosRestController {
 	private IPerecederosService metodoService;
 
 	@GetMapping("/perecederos")
-	public List<PerecederosVo> index() {
+	public List<Ajuste> index() {
 		return metodoService.find();
 	}
 }
